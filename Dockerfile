@@ -14,4 +14,4 @@ RUN apt update
 RUN pip3 install -U pip
 RUN pip3 install -r requirements-prod.txt
 
-CMD uvicorn app.main:app --host 0.0.0.0 --port $SERVER_PORT
+CMD ["./run_docker.sh"]
