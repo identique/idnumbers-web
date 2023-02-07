@@ -6,6 +6,8 @@ class ValidationResponse(BaseModel):
 
 
 class ValidationRequestPayload(BaseModel):
+    # TODO: Validate if country is exist
+    country: str
     id_number: str
 
     @validator('id_number')

@@ -1,12 +1,12 @@
+import importlib
 from fastapi import APIRouter
 from app.models import ValidationRequestPayload, ValidationResponse
 
-from idnumbers.nationalid import USA
-
-router = APIRouter(prefix='/national_id/USA', tags=['USA'])
+router = APIRouter(prefix='/national_id', tags=['national_id'])
 
 
-@router.post("/validate", tags=['validate'], response_model=ValidationResponse)
-async def validate(payload: ValidationRequestPayload):
-    is_valid = USA.SocialSecurityNumber.validate(payload.id_number)
+@router.post("/validate")
+async def test(payload: ValidationRequestPayload):
+    module = importlib.import_module(f'idnumbers.nationalid.{payload.country}')
+    is_valid = module.NationalID.validate(payload.id_number)
     return ValidationResponse(is_valid=is_valid)
