@@ -3,11 +3,11 @@ from fastapi import FastAPI
 from fastapi.exceptions import RequestValidationError, ValidationError
 from fastapi.responses import JSONResponse
 
-from .routers.national_id.USA import router as usa_router
+from .routers.national_id import router
 
 app = FastAPI()
 
-app.include_router(usa_router)
+app.include_router(router)
 
 
 @app.exception_handler(RequestValidationError)
