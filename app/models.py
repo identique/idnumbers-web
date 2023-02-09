@@ -1,3 +1,4 @@
+import importlib
 from pydantic import BaseModel, validator
 
 
@@ -6,9 +7,37 @@ class ValidationResponse(BaseModel):
 
 
 class ValidationRequestPayload(BaseModel):
-    # TODO: Validate if country is exist
     country: str
     id_number: str
+
+    @validator('country')
+    def country_validation(cls, country):
+        try:
+            importlib.import_module(f'idnumbers.nationalid.{country}')
+        except ModuleNotFoundError:
+            raise ValueError("The country is not support now.")
+        return country
+
+    @validator('id_number')
+    def id_number_validation(cls, id_number):
+        if not id_number:
+            raise ValueError("Invalid id number")
+        return id_number
+
+
+class ParseRequestPayload(BaseModel):
+    country: str
+    id_number: str
+
+    @validator('country')
+    def country_validation(cls, country):
+        try:
+            module = importlib.import_module(f'idnumbers.nationalid.{country}')
+        except ModuleNotFoundError:
+            raise ValueError("The country is not support now.")
+        if not module.NationalID.METADATA.parsable:
+            raise ValueError("ID for this country is not parsable")
+        return country
 
     @validator('id_number')
     def id_number_validation(cls, id_number):
