@@ -15,7 +15,7 @@ class ValidationRequestPayload(BaseModel):
         try:
             importlib.import_module(f'idnumbers.nationalid.{country}')
         except ModuleNotFoundError:
-            raise ValueError("The country is not support now.")
+            raise ValueError(f"The country {country} is not support now.")
         return country
 
     @validator('id_number')
@@ -34,9 +34,9 @@ class ParseRequestPayload(BaseModel):
         try:
             module = importlib.import_module(f'idnumbers.nationalid.{country}')
         except ModuleNotFoundError:
-            raise ValueError("The country is not support now.")
+            raise ValueError(f"The country {country} is not support now.")
         if not module.NationalID.METADATA.parsable:
-            raise ValueError("ID for this country is not parsable")
+            raise ValueError(f"ID for this country {country} is not parsable")
         return country
 
     @validator('id_number')

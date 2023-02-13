@@ -1,0 +1,21 @@
+version: 1
+disable_existing_loggers: False
+formatters:
+  default:
+    (): 'uvicorn.logging.DefaultFormatter'
+    fmt: "%(asctime)s [%(levelname)s] <%(process)d>:%(module)s:%(funcName)s:%(lineno)s %(message)s"
+handlers:
+  error:
+    class: logging.StreamHandler
+    formatter: default
+    stream: ext://sys.stdout
+  access:
+    class: logging.handlers.TimedRotatingFileHandler
+    formatter: default
+    filename: app.log
+loggers:
+  uvicorn.error:
+    level: INFO
+    handlers:
+      - error
+      - access
