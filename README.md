@@ -1,3 +1,6 @@
+# Checkout our server
+https://id-numbers.fly.dev/
+
 # Python
 #### Require python version above `3.10`
 
@@ -13,3 +16,4 @@ pip install -r requirements.txt
 
 ## Api doc
 Api docs can be access in `/docs`
+also in our own server https://id-numbers.fly.dev/docs
