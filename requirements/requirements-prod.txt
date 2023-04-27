@@ -1,5 +1,5 @@
-idnumbers==1.0.0
-fastapi==0.89.1
-uvicorn==0.20.0
-pydantic==1.10.4
-PyYAML==5.4.1
+idnumbers==1.11.0
+fastapi==0.95.1
+uvicorn==0.21.1
+pydantic==1.10.7
+PyYAML==6.0
