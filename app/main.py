@@ -1,7 +1,7 @@
 import json
 import logging
 from fastapi import FastAPI
-from fastapi.exceptions import RequestValidationError, ValidationError
+from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 
 from .routers.national_id import router
@@ -13,7 +13,6 @@ logger = logging.getLogger('uvicorn.error')
 
 
 @app.exception_handler(RequestValidationError)
-@app.exception_handler(ValidationError)
 async def validation_exception_handler(_, exception):
     exc_json = json.loads(exception.json())
     response = {"message": []}
